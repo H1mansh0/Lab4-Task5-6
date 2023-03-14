@@ -1,12 +1,12 @@
-import mygame.mygame as mygame
+import game
 
-kitchen = mygame.Room("Kitchen")
+kitchen = game.Room("Kitchen")
 kitchen.set_description("A dank and dirty room buzzing with flies.")
 
-dining_hall = mygame.Room("Dining Hall")
+dining_hall = game.Room("Dining Hall")
 dining_hall.set_description("A large room with ornate golden decorations on each wall.")
 
-ballroom = mygame.Room("Ballroom")
+ballroom = game.Room("Ballroom")
 ballroom.set_description("A vast room with a shiny wooden floor. Huge candlesticks guard the entrance.")
 
 kitchen.link_room(dining_hall, "south")
@@ -14,21 +14,21 @@ dining_hall.link_room(kitchen, "north")
 dining_hall.link_room(ballroom, "west")
 ballroom.link_room(dining_hall, "east")
 
-dave = mygame.Enemy("Dave", "A smelly zombie")
+dave = game.Enemy("Dave", "A smelly zombie")
 dave.set_conversation("What's up, dude! I'm hungry.")
 dave.set_weakness("cheese")
 dining_hall.set_character(dave)
 
-tabitha = mygame.Enemy("Tabitha", "An enormous spider with countless eyes and furry legs.")
+tabitha = game.Enemy("Tabitha", "An enormous spider with countless eyes and furry legs.")
 tabitha.set_conversation("Sssss....I'm so bored...")
 tabitha.set_weakness("book")
 ballroom.set_character(tabitha)
 
-cheese = mygame.Item("cheese")
+cheese = game.Item("cheese")
 cheese.set_description("A large and smelly block of cheese")
 ballroom.set_item(cheese)
 
-book = mygame.Item("book")
+book = game.Item("book")
 book.set_description("A really good book entitled 'Knitting for dummies'")
 dining_hall.set_item(book)
 
@@ -93,3 +93,4 @@ while dead == False:
             print("There's nothing here to take!")
     else:
         print("I don't know how to " + command)
+        
