@@ -99,8 +99,6 @@ class Character:
     Class of all characters
     """
 
-    _wins = 0
-
     def __init__(self, name , description):
         """
         init function
@@ -121,7 +119,7 @@ class Character:
         """
         print(
             f'{self.name} тут\n'
-            f'{self.description} [битись]'
+            f'{self.description} [битись, говорити]'
             )
     
     def talk(self):
@@ -160,7 +158,6 @@ class Enemy(Character):
         Check if the main hero can kill character
         """
         if item == self.weakness:
-            Character._wins += 1
             return True
         else: return False
 
@@ -172,6 +169,9 @@ class Big_enemy(Enemy):
         super(Enemy, self).__init__(name, description)
 
     def final_heet(self):
+        """
+        Returns a question
+        """
         print('Під яким кущем під час дощу ховається заєць?')
 
 class Friend(Character):
@@ -185,9 +185,15 @@ class Friend(Character):
         super(Friend, self).__init__(name, description) 
 
     def set_treatment(self, treatment):
+        """
+        Sets new attribute: treatment
+        """
         self.treatment = treatment
 
     def set_item(self, item):
+        """
+        Sets new attribute: item
+        """
         self.item = item
 
 
@@ -224,7 +230,13 @@ class Hint(Item):
     Class of hints
     """
     def __init__(self, name):
+        """
+        init function
+        """
         super(Hint, self).__init__(name)
 
-    def use_hint():
+    def use_hint(self):
+        """
+        Prints hint
+        """
         print('Ви розгорнули підказку. Вона пуста, але мокра')
