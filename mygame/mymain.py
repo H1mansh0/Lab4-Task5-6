@@ -1,4 +1,4 @@
-import mygame.mygame as mygame
+import mygame
 
 ivasuka = mygame.Room("Вулиця Івасюка")
 ivasuka.set_description("Найперша ваша точка. Довга вулиця, яка є початком ваших пригод")
@@ -46,7 +46,7 @@ ivasuka.set_item(coin)
 
 magic_drink = mygame.Item("пиво")
 magic_drink.set_description('Просте пиво. Цікаво, навіщо воно вам?')
-sto_metrivka.set_item(magic_drink)
+pozitron.set_item(magic_drink)
 
 brook = mygame.Item("бруківка")
 brook.set_description("Звичайна бруківка")
@@ -73,12 +73,13 @@ while dead == False:
     if item is not None:
         item.describe()
 
-    command = input("> ")
     if current_room == town_hall:
         while True:
             command = input("> ")
             if command == 'битись': break
+            elif command == 'говорити': final_boss.talk()
             current_room.move(command)
+    else: command = input("> ")
 
     if command in ["наступна", "попередня"]:
         current_room = current_room.move(command)
@@ -89,26 +90,29 @@ while dead == False:
                 print("Що ви дасте йому?")
                 give_item = input("> ")
                 if (give_item in backpack) and (give_item == 'копійка'):
-                    print(f'Ви отримали + {hint} + і поклали це у рюкзак')
+                    print(f'Ви отримали {hint.name} і поклали це у рюкзак')
                     backpack.append(hint)
                 else:
                     print("Дайкопійку усміхнувся і розвернувся")
     elif command == "битись":
         if inhabitant is not None:
             if inhabitant == final_boss:
-                print("Що ви використаєте у битві")
+                print("Що ви використаєте у битві?")
                 fight_with = input()
                 if fight_with in backpack: 
                     if inhabitant.fight(fight_with) == True:
-                        print('AAAAA. Добре, якщо ти відгадаєш цю загадку - ти переміг!')
+                        print('Міський голова: о ні.'
+                              'Добре, якщо ти відгадаєш цю загадку - ти переміг!')
                         inhabitant.final_heet()
                         if hint in backpack:
                             print("Використати підказку?")
                             response = input('> ')
-                            if ['т', 'а', 'к'] in list(response.lower()):
-                                hint.use_hint() 
+                            if 'та' in response.lower():
+                                hint.use_hint()
+                            else: print("Ви не використали підказку") 
+                        print('Ваша відповідь?')
                         guess = input("> ")
-                        if ['м','о','к','р','и','й'] in list(guess):
+                        if 'мокри' in guess:
                             print("Ви перемогли!")
                             dead = True
                         else:
@@ -121,13 +125,15 @@ while dead == False:
                     print("У вас немає такого предмету " + fight_with)
                     print("Марцинків кинув у вас бруківку. Ви програли!")
                     dead = True
+            elif inhabitant == dai_kopiiky:
+                print("Це ж легенда його не можна бити!")
             else:
-                print("Що ви використаєте у битві")
+                print("Що ви використаєте у битві?")
                 fight_with = input()
                 if fight_with in backpack:
                     if inhabitant.fight(fight_with) == True:
                         print("Чудо! Вас не вбили. Продовжуйте йти далі")
-                        print("Ви забрали " + brook.get_name() + "і поклали це у рюкзак")
+                        print("Ви забрали " + brook.get_name() + " і поклали це у рюкзак")
                         backpack.append(brook.get_name())
                         current_room.character = None
                     else:
@@ -140,10 +146,11 @@ while dead == False:
             print("Заспокойтесь сонце вже низько. Тут немає з ким битися")
     elif command == "взяти":
         if item is not None:
-            print("Ви забрали " + item.get_name() + "і поклали це у рюкзак")
+            print(f"Ви забрали предмет '{item.get_name()}' і поклали це у рюкзак")
             backpack.append(item.get_name())
             current_room.set_item(None)
         else:
             print("Немає, що брати! Галяк!")
     else:
         print("Ви агресивно стоїте на місці незнаючи, що робити")
+        
