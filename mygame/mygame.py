@@ -61,7 +61,7 @@ class Street:
         If the destination to next room correct
         returns next room
         """
-        for ele in self.rooms:
+        for ele in self.streets:
             if destination_user in ele:
                 return ele[0]
             
@@ -74,7 +74,7 @@ class Street:
             '---------------------\n'
             f'{self.description}\n'
         )
-        for ele in self.rooms:
+        for ele in self.streets:
             print(f'{ele[0].name} {ele[1]} [{ele[1]}]')
 
 class Final_street(Street):
