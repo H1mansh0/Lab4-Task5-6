@@ -12,7 +12,7 @@ class Street:
         init function
         """
         self.name = name
-        self.rooms = []
+        self.streets = []
 
     def set_description(self, description):
         """
@@ -47,14 +47,14 @@ class Street:
         try: return self.item
         except AttributeError: return None
     
-    def link_street(self, nextroom, destination):
+    def link_street(self, nextstreer, destination):
         """
         Sets the next possible room
         and sets the destination to it
         """
-        self.nextroom = nextroom
+        self.nextstreet = nextstreet
         self.destination = destination
-        self.rooms += [(self.nextroom, self.destination)]
+        self.streets += [(self.nextroom, self.destination)]
         
     def move(self, destination_user):
         """
@@ -79,7 +79,7 @@ class Street:
 
 class Final_street(Street):
 
-    rooms = []
+    streets = []
 
     def __init__(self, name):
         """
