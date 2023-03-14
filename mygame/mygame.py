@@ -2,7 +2,7 @@
 Game code
 """
 
-class Room:
+class Street:
     """
     Class of rooms
     """
@@ -47,7 +47,7 @@ class Room:
         try: return self.item
         except AttributeError: return None
     
-    def link_room(self, nextroom, destination):
+    def link_street(self, nextroom, destination):
         """
         Sets the next possible room
         and sets the destination to it
@@ -77,7 +77,7 @@ class Room:
         for ele in self.rooms:
             print(f'{ele[0].name} {ele[1]} [{ele[1]}]')
 
-class Final_room(Room):
+class Final_street(Street):
 
     rooms = []
 
