@@ -47,14 +47,14 @@ class Street:
         try: return self.item
         except AttributeError: return None
     
-    def link_street(self, nextstreer, destination):
+    def link_street(self, nextstreet, destination):
         """
         Sets the next possible room
         and sets the destination to it
         """
         self.nextstreet = nextstreet
         self.destination = destination
-        self.streets += [(self.nextroom, self.destination)]
+        self.streets += [(self.nextstreet, self.destination)]
         
     def move(self, destination_user):
         """
