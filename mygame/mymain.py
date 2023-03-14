@@ -1,28 +1,28 @@
 import mygame
 
-ivasuka = mygame.Room("Вулиця Івасюка")
+ivasuka = mygame.Street("Вулиця Івасюка")
 ivasuka.set_description("Найперша ваша точка. Довга вулиця, яка є початком ваших пригод")
 
-nezaleznosti = mygame.Room("Вулиця Незалежності")
+nezaleznosti = mygame.Street("Вулиця Незалежності")
 nezaleznosti.set_description("Веде до центру, найдовша вулиця у місті")
 
-sto_metrivka = mygame.Room("Стометрівка")
+sto_metrivka = mygame.Street("Стометрівка")
 sto_metrivka.set_description("Довжина Стометрівки не 100 метрів")
 
-town_hall = mygame.Final_room("Міська ратуша")
+town_hall = mygame.Final_street("Міська ратуша")
 town_hall.set_description("Центр міста з великою кількістю розваг і пригод")
 
-pozitron = mygame.Room('Позитрон')
+pozitron = mygame.Street('Позитрон')
 pozitron.set_description('Район, де є пожежна станція. Цікаво, що тут можна знайти')
 
-pozitron.link_room(ivasuka, "наступна")
-ivasuka.link_room(pozitron, "попередня")
-ivasuka.link_room(nezaleznosti, "наступна")
-nezaleznosti.link_room(ivasuka, "попередня")
-nezaleznosti.link_room(sto_metrivka, "наступна")
-sto_metrivka.link_room(nezaleznosti, "попередня")
-sto_metrivka.link_room(town_hall, "наступна")
-town_hall.link_room(sto_metrivka, "попередня")
+pozitron.link_street(ivasuka, "наступна")
+ivasuka.link_street(pozitron, "попередня")
+ivasuka.link_street(nezaleznosti, "наступна")
+nezaleznosti.link_street(ivasuka, "попередня")
+nezaleznosti.link_street(sto_metrivka, "наступна")
+sto_metrivka.link_street(nezaleznosti, "попередня")
+sto_metrivka.link_street(town_hall, "наступна")
+town_hall.link_street(sto_metrivka, "попередня")
 
 
 vova = mygame.Enemy("Вова", "Хлопець з не дуже привітнім виглядом")
@@ -55,7 +55,7 @@ hint = mygame.Hint('підказка')
 hint.set_description("Дивний папірець від діда дай копійку")
 dai_kopiiky.set_item(hint)
 
-current_room = ivasuka
+current_street = ivasuka
 backpack = []
 
 dead = False
@@ -63,26 +63,26 @@ dead = False
 while dead == False:
 
     print("\n")
-    current_room.get_details()
+    current_street.get_details()
 
-    inhabitant = current_room.get_character()
+    inhabitant = current_street.get_character()
     if inhabitant is not None:
         inhabitant.describe()
 
-    item = current_room.get_item()
+    item = current_street.get_item()
     if item is not None:
         item.describe()
 
-    if current_room == town_hall:
+    if current_street == town_hall:
         while True:
             command = input("> ")
             if command == 'битись': break
             elif command == 'говорити': final_boss.talk()
-            current_room.move(command)
+            current_street.move(command)
     else: command = input("> ")
 
     if command in ["наступна", "попередня"]:
-        current_room = current_room.move(command)
+        current_street = current_street.move(command)
     elif command == "говорити":
         if inhabitant is not None:
             inhabitant.talk()
@@ -135,7 +135,7 @@ while dead == False:
                         print("Чудо! Вас не вбили. Продовжуйте йти далі")
                         print("Ви забрали " + brook.get_name() + " і поклали це у рюкзак")
                         backpack.append(brook.get_name())
-                        current_room.character = None
+                        current_street.character = None
                     else:
                         print("Ви програли...")
                         print("Це кінець.")
@@ -148,9 +148,8 @@ while dead == False:
         if item is not None:
             print(f"Ви забрали предмет '{item.get_name()}' і поклали це у рюкзак")
             backpack.append(item.get_name())
-            current_room.set_item(None)
+            current_street.set_item(None)
         else:
             print("Немає, що брати! Галяк!")
     else:
         print("Ви агресивно стоїте на місці незнаючи, що робити")
-        
