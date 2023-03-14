@@ -127,13 +127,6 @@ class Character:
         Returns phrase of character
         """
         print(self.conv)
-    
-    def get_defeated(self):
-        """
-        Returns amount of wins
-        """
-        return self._wins
-    
 
 
 class Enemy(Character):
